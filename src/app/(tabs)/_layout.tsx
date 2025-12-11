@@ -1,18 +1,21 @@
+import MainHeaderWrapper from "@src/components/header";
+import { fontFamily } from "@src/constants/fonts";
 import { HapticFeel } from "@src/utils";
 import { Tabs } from "expo-router";
 import { Blocks, Handbag, House, Tag } from 'lucide-react-native';
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function TabsLayout() {
 
     return (
         <Tabs
             screenOptions={{
-                animation: "shift",
+                header: () => <MainHeaderWrapper />,
+                animation: "none",
                 tabBarLabelStyle: {
-                    fontSize: 11,
-                    fontWeight: "700",
-                    fontFamily: "Montserrat-Bold",
+                    fontSize: 18,
+                    fontWeight: "900",
+                    fontFamily: fontFamily.BlueBubble
                 },
                 tabBarStyle: {
                     backgroundColor: '#363636',
@@ -39,7 +42,7 @@ export default function TabsLayout() {
                             <House size={focused ? 24 : 20} color={color} />
                         </View>
                     ),
-                    header: () => (<Text style={{ marginTop: 45 }} >Header Component</Text>)
+
                 }}
                 listeners={{
                     tabPress: () => HapticFeel(),
@@ -52,7 +55,6 @@ export default function TabsLayout() {
                 name='categories'
                 options={{
                     title: "Categories",
-                    headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
                         <View style={styles.iconContainer}>
                             {focused && <ActiveTabIndicator />}
@@ -67,7 +69,6 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name='order-again'
                 options={{
-                    headerShown: false,
                     title: "Order Again",
                     tabBarIcon: ({ focused, color }) => (
                         <View style={styles.iconContainer}>
@@ -83,7 +84,6 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name='offers'
                 options={{
-                    headerShown: false,
                     title: "Offers",
                     tabBarBadge: 5,
                     tabBarBadgeStyle: {
