@@ -13,7 +13,7 @@ export default function TabsLayout() {
                 header: () => <MainHeaderWrapper />,
                 animation: "none",
                 tabBarLabelStyle: {
-                    fontSize: 18,
+                    fontSize: 10,
                     fontWeight: "900",
                     fontFamily: fontFamily.BlueBubble
                 },
