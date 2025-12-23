@@ -1,16 +1,22 @@
+import PressableHaptic from '@src/components/pressable-haptics'
+import { useRouter } from 'expo-router'
 import { ChevronDown } from 'lucide-react-native'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
 import CirculatButton from '../icon-buttons'
 import { RIGHT_SECTION_DATA } from './constant'
 import { styles } from "./styles"
 
 const MainHeaderWrapper = () => {
+    const { push } = useRouter();
+
     return (
         <View style={styles.container} >
-            {/* left section  */}
-            <TouchableOpacity
-                activeOpacity={0.8}
+            <PressableHaptic
+                style={({ pressed }) => [
+                    { opacity: pressed ? 0.6 : 1 }
+                ]}
+                onPress={() => push('/delivery-location')}
             >
                 <View>
                     <Text style={[styles.header, styles.color]}>Quicko in</Text>
@@ -24,14 +30,13 @@ const MainHeaderWrapper = () => {
                         </Text>
 
                         <View style={styles.current_location}>
-                            <Text style={[styles.color]}>FLOOR 3, 301</Text>
+                            <Text style={[styles.color]}> FLOOR 3, 301</Text>
                             <ChevronDown color="white" size={15} />
                         </View>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableHaptic >
 
-            {/* Right section */}
             <View style={styles.rightSection} >
                 {
                     RIGHT_SECTION_DATA.map((el, idx) => (

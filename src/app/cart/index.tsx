@@ -1,3 +1,11 @@
+import { useLocalSearchParams } from "expo-router"
+import { Text } from "react-native"
+
 export default function Cart() {
-    return <></>
+    const { isDefaultJourney } = useLocalSearchParams()
+    return (
+        <Text>
+            This is the cart page and is this journey default: {isDefaultJourney}
+        </Text>
+    )
 }

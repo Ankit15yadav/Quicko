@@ -4,7 +4,7 @@ import { ICircularButton } from "../icon-buttons";
 export const RIGHT_SECTION_DATA: ICircularButton[] = [
     {
         Icon: Wallet,
-        href: "/(tabs)/order-again",
+        href: "/(tabs)/categories/search",
         isWalleticon: true
     },
     {

@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 65,
+        paddingTop: 45,
         paddingHorizontal: 10,
         color: 'black',
         backgroundColor: "#7e7e7e",
@@ -15,7 +15,6 @@ export const styles = StyleSheet.create({
     header: {
         // fontFamily: fontFamily.BlueBubble,
         fontWeight: '700',
-        marginLeft: 5,
     },
     name_of_location: {
         fontSize: 15,
@@ -25,7 +24,7 @@ export const styles = StyleSheet.create({
         color: 'white'
     },
     timeText: {
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: '800',
         marginTop: 4,
     },

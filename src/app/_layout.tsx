@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 SplashScreen.setOptions({
@@ -30,10 +31,13 @@ export default function RootLayout() {
   }, [loaded])
 
   return (
-    <>
-      <Stack screenOptions={{ headerShown: false }} />
-      <StatusBar style="dark" />
-    </>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.8] }} />
+      </Stack>
+      <StatusBar style="auto" />
+    </GestureHandlerRootView>
 
   );
 }
+
