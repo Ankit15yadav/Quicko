@@ -1,7 +1,10 @@
 import * as Haptic from "expo-haptics";
 
-export async function HapticFeel(
+export function HapticFeel(
     touch?: keyof typeof Haptic.ImpactFeedbackStyle,
-) {
-    return Haptic.impactAsync(Haptic.ImpactFeedbackStyle[touch ?? 'Light']);
+    delay: number = 10
+): void {
+    setTimeout(() => {
+        Haptic.impactAsync(Haptic.ImpactFeedbackStyle[touch ?? 'Light']);
+    }, delay);
 }

@@ -1,6 +1,5 @@
 import MainHeaderWrapper from "@src/components/header";
 import { fontFamily } from "@src/constants/fonts";
-import { LocationBottomDrawerProvider } from "@src/contexts/location-bottom-drawer";
 import { HapticFeel } from "@src/utils";
 import { Tabs } from "expo-router";
 import { Blocks, Handbag, House, Tag } from 'lucide-react-native';
@@ -9,7 +8,6 @@ import { StyleSheet, View } from "react-native";
 export default function TabsLayout() {
 
     return (
-        <LocationBottomDrawerProvider>
             <Tabs
                 screenOptions={{
                     header: () => <MainHeaderWrapper />,
@@ -103,7 +101,6 @@ export default function TabsLayout() {
                     }}
                 />
             </Tabs>
-        </LocationBottomDrawerProvider>
 
     )
 }

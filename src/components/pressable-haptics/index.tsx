@@ -6,12 +6,11 @@ interface IPressableHaptic extends PressableProps{
     children : ReactNode,
 }
 
-const PressableHaptic = ({children, onPress, ...props}:IPressableHaptic) => {
+const PressableHaptic = ({children, ...props}:IPressableHaptic) => {
     return (
         <Pressable
-            onPress={(event) => {
-                HapticFeel('Light')
-                onPress?.(event)
+            onPressOut={(event) => {
+                HapticFeel()
             }}
             {...props}
         >
