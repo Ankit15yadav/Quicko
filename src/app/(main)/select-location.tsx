@@ -1,8 +1,8 @@
-import { Text } from "react-native"
+import LocationSelectionComponent from "@src/screens/maps"
 
 const MapPinLocationPage = () => {
     return (
-        <Text>This is map pin location page</Text>
+        <LocationSelectionComponent />
     )
 }
- export default MapPinLocationPage
+export default MapPinLocationPage

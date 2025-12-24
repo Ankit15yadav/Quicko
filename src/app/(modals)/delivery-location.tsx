@@ -3,10 +3,12 @@ import { useRouter } from "expo-router";
 import { Text } from "react-native";
 
 const LocationBottomDrawer = () => {
-    const { push } = useRouter();
+    const { replace } = useRouter();
     return (
-        <PressableHaptic 
-        onPress={() => push('/(main)/select-location')}
+        <PressableHaptic
+            onPress={() => {
+                replace('/(main)/select-location')
+            }}
         >
             <Text>This is bottom drawer</Text>
         </PressableHaptic>

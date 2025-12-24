@@ -1,6 +1,7 @@
+import PageHeader from '@src/components/page-header';
 import { fontFamily } from '@src/constants/fonts';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -15,11 +16,12 @@ SplashScreen.setOptions({
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { dismissAll, push } = useRouter()
   const [loaded, error] = useFonts({
     [fontFamily.BlueBubble]: require("../assets/font/WorkSans.ttf")
   })
 
-    useEffect(() => {
+  useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync()
     }
@@ -33,8 +35,15 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='(modals)/delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.8] }} />
-      <Stack.Screen name='(main)/select-location' options={{ headerShown: false, presentation: 'card', }} />
+        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+        <Stack.Screen name='(main)/select-location' options={{
+          headerShown: true,
+          header: () => <PageHeader name='Select Location' backFn={() => {
+            dismissAll();
+            push('/(modals)/delivery-location')
+          }} />
+        }} />
+        <Stack.Screen name='(modals)/delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.8] }} />
       </Stack>
       <StatusBar style="auto" />
     </GestureHandlerRootView>
