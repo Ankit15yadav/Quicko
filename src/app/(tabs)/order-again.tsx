@@ -1,9 +1,16 @@
-import { Text } from "react-native";
+import { useLocationBottomDrawer } from "@src/contexts/location-bottom-drawer";
+import { Text, TouchableOpacity } from "react-native";
 
 export default function OrderAgain() {
+    const { close } = useLocationBottomDrawer()
     return (
-        <Text>
-            This is order again page
-        </Text>
+        <>
+            <TouchableOpacity onPress={close}>
+                <Text>open bottom drawer</Text>
+            </TouchableOpacity>
+            <Text>
+                This is order again page
+            </Text>
+        </>
     )
 }

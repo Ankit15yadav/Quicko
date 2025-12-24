@@ -43,7 +43,9 @@
             "image": "./src/assets/images/blinkit.svg"
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,

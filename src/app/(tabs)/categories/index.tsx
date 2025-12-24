@@ -1,16 +1,19 @@
-import { Button } from "@react-navigation/elements";
-import { Link } from "expo-router";
-import { Text } from "react-native";
+import { useRouter } from "expo-router";
+import { Text, TouchableOpacity } from "react-native";
 
 export default function Categories() {
+    const { push } = useRouter()
     return (
         <Text>
             This is category page
-            <Link href="/categories/search" push asChild>
-                <Button>
-                    Go to /categories/search
-                </Button>
-            </Link>
+            <TouchableOpacity onPress={() => push({
+                pathname: '/cart',
+                params: {
+                    isDefaultJourney: 'false'
+                }
+            })}>
+                <Text>Go to next page</Text>
+            </TouchableOpacity>
         </Text>
     )
 }
