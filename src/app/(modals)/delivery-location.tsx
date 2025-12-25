@@ -1,17 +1,8 @@
-import PressableHaptic from "@src/components/pressable-haptics";
-import { useRouter } from "expo-router";
-import { Text } from "react-native";
+import LocationBottomDrawerScreen from "@src/screens/bottom-drawers/locationBottomDrawer.ios";
 
 const LocationBottomDrawer = () => {
-    const { replace } = useRouter();
     return (
-        <PressableHaptic
-            onPress={() => {
-                replace('/(main)/select-location')
-            }}
-        >
-            <Text>This is bottom drawer</Text>
-        </PressableHaptic>
+        <LocationBottomDrawerScreen />
     )
 }
 

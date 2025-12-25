@@ -21,16 +21,16 @@ export default function RootLayout() {
     [fontFamily.BlueBubble]: require("../assets/font/WorkSans.ttf")
   })
 
+  if (error) {
+    // To show the app error screen
+    return null;
+  }
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync()
     }
   }, [loaded])
-
-  if (error) {
-    // To show the app error screen
-    return null;
-  }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -43,7 +43,7 @@ export default function RootLayout() {
             push('/(modals)/delivery-location')
           }} />
         }} />
-        <Stack.Screen name='(modals)/delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.8] }} />
+        <Stack.Screen name='(modals)/delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.85] }} />
       </Stack>
       <StatusBar style="auto" />
     </GestureHandlerRootView>
