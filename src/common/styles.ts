@@ -19,12 +19,15 @@ export const HeaderTextstyles: VariantStyles = StyleSheet.create({
         color: 'white',
     },
     'base-1': {
-
+        fontSize: 12,
+        fontWeight: 500,
+        letterSpacing: 0.2,
+        color: 'white'
     }
 })
 
 export const Modalpadding = StyleSheet.create({
     default: {
-        paddingHorizontal: 8
+        paddingHorizontal: 12
     }
 })
