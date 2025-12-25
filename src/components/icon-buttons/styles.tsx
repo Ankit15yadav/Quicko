@@ -21,10 +21,12 @@ export const styles = StyleSheet.create({
         bottom: -4,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#3d3d3dff",
+        backgroundColor: "#686868ff",
         width: 34,
         height: 12,
         borderRadius: 100,
+        borderWidth: 0.2,
+        borderColor: 'white'
     },
 
     WalletAmountText: {

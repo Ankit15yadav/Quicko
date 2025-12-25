@@ -44,6 +44,13 @@
           }
         }
       ],
+      [
+         "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Quicko to use your location.",
+          
+        }
+      ],
       "expo-font",
       "expo-web-browser"
     ],
