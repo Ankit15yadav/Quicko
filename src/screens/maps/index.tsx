@@ -1,5 +1,7 @@
+import { useLocation } from '@src/contexts/location';
+import { useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { EdgePadding, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { EdgePadding, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 const INITIAL_REGION: Region = {
     "latitude": 18.5204,
@@ -15,19 +17,58 @@ const PADDING: EdgePadding = {
     top: 10
 }
 
-export default () => (
-    <View style={styles.container}>
-        <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            initialRegion={INITIAL_REGION}
-            showsUserLocation
-            showsMyLocationButton
-            mapPadding={PADDING}
-        >
-        </MapView>
-    </View>
-);
+const MapPinLocation = () => {
+    const { location } = useLocation()
+    const mapRef = useRef<MapView>(null)
+
+    // Animate to user's location when location changes
+    useEffect(() => {
+        if (location && mapRef.current) {
+            mapRef.current.animateToRegion({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+            }, 1000);
+        }
+    }, [location]);
+
+    return (
+        <View style={styles.container}>
+            <MapView
+                ref={mapRef}
+                provider={PROVIDER_GOOGLE}
+                style={styles.map}
+                initialRegion={location ? {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.01,
+                    longitudeDelta: 0.01,
+                } : INITIAL_REGION}
+                showsUserLocation
+                showsMyLocationButton
+                followsUserLocation
+                showsCompass
+                showsTraffic
+                mapPadding={PADDING}
+            >
+                {location && (
+                    <Marker
+                        coordinate={{
+                            latitude: location.coords.latitude,
+                            longitude: location.coords.longitude,
+                        }}
+                        title="Current Location"
+                        description={`Accuracy: ${location.coords.accuracy?.toFixed(0)}m`}
+                        pinColor="red"
+                    />
+                )}
+            </MapView>
+        </View>
+    )
+};
+
+export default MapPinLocation
 
 const styles = StyleSheet.create({
     container: {

@@ -10,7 +10,7 @@ interface IPageHeader {
     showShareButton?: boolean;
 }
 
-const PageHeader = ({ name, backFn, hideBackButton = false, showShareButton = true }: IPageHeader) => {
+const PageHeader = ({ name, backFn, showShareButton = false }: IPageHeader) => {
     const { back } = useRouter();
 
     const handleBackClick = () => {
@@ -25,9 +25,7 @@ const PageHeader = ({ name, backFn, hideBackButton = false, showShareButton = tr
         <View style={styles.wrapper}>
             <View style={styles.container} >
                 <Pressable style={styles.leftSection} onPress={handleBackClick}>
-                    {!hideBackButton && (
-                        <ChevronLeft size={28} color="#333" />
-                    )}
+                    <ChevronLeft size={28} color="#333" />
                 </Pressable>
 
                 <View style={styles.centerSection}>

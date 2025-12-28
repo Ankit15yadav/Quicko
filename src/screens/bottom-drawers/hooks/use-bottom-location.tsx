@@ -4,7 +4,7 @@ import { LocateFixed, Plus } from "lucide-react-native";
 import { LocationBottomDrawerStyle as styles } from "../styles";
 
 export const useBottomLocation = () => {
-    const { replace } = useRouter()
+    const { replace, push } = useRouter()
     const locationOptions: LocationActionItemProps[] = [
         {
             icon: LocateFixed,
@@ -18,6 +18,7 @@ export const useBottomLocation = () => {
             icon: Plus,
             title: "Add new address",
             hideUpperRounded: true,
+            onPress: () => push("/(modals)/add-address")
         },
     ];
 

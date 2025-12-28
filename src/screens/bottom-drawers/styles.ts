@@ -7,9 +7,10 @@ export const LocationBottomDrawerStyle = StyleSheet.create({
     },
     container: {
         marginTop: 10,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        paddingBottom: 100
     },
     marginTop: {
         marginTop: 10,
-    }
+    },
 })
