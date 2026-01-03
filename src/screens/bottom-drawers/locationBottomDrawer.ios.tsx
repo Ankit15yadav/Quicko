@@ -39,7 +39,6 @@ const LocationBottomDrawerScreen = () => {
                         badgeText={item.badgeText}
                         address={item.address}
                         phoneNumber={item.phoneNumber}
-                        onPress={() => console.log('Selected:', item.phoneNumber ?? item.title)}
                     />
                 ))}
             </View>

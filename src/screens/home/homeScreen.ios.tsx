@@ -14,8 +14,8 @@ const BouncyDemo = () => {
             borderRadius: 2,
         }}>
             <TouchableOpacity>
-                <Text>{location?.coords.latitude}</Text>
-                <Text>{location?.coords.longitude}</Text>
+                <Text>{location?.coords?.latitude}</Text>
+                <Text>{location?.coords?.longitude}</Text>
             </TouchableOpacity>
             <Text style={{ fontFamily: fontFamily.BlueBubble, fontSize: 12 }} >
 

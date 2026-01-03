@@ -1,7 +1,9 @@
 import { useLocation } from '@src/contexts/location';
 import { useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { EdgePadding, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { EdgePadding, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import PinLocationMarker from './partials/marker';
+import SelectedAddressPreview from './partials/selected-address-modal';
 
 const INITIAL_REGION: Region = {
     "latitude": 18.5204,
@@ -18,15 +20,14 @@ const PADDING: EdgePadding = {
 }
 
 const MapPinLocation = () => {
-    const { location } = useLocation()
+    const { location, selectedAddress, handleOnRegionChangeComplete, setIsLoading, isLoading, setSelectedAddress } = useLocation()
     const mapRef = useRef<MapView>(null)
 
-    // Animate to user's location when location changes
     useEffect(() => {
         if (location && mapRef.current) {
             mapRef.current.animateToRegion({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
+                latitude: location?.coords?.latitude,
+                longitude: location?.coords?.longitude,
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01,
             }, 1000);
@@ -40,30 +41,23 @@ const MapPinLocation = () => {
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 initialRegion={location ? {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
+                    latitude: location?.coords?.latitude,
+                    longitude: location?.coords?.longitude,
                     latitudeDelta: 0.01,
                     longitudeDelta: 0.01,
                 } : INITIAL_REGION}
                 showsUserLocation
                 showsMyLocationButton
                 followsUserLocation
-                showsCompass
-                showsTraffic
                 mapPadding={PADDING}
-            >
-                {location && (
-                    <Marker
-                        coordinate={{
-                            latitude: location.coords.latitude,
-                            longitude: location.coords.longitude,
-                        }}
-                        title="Current Location"
-                        description={`Accuracy: ${location.coords.accuracy?.toFixed(0)}m`}
-                        pinColor="red"
-                    />
-                )}
-            </MapView>
+                onRegionChangeComplete={handleOnRegionChangeComplete}
+                onRegionChangeStart={() => {
+                    setIsLoading?.(true);
+                    setSelectedAddress(undefined)
+                }}
+            />
+            <PinLocationMarker />
+            <SelectedAddressPreview address={selectedAddress?.[0]} isLoading={isLoading} />
         </View>
     )
 };
@@ -80,5 +74,5 @@ const styles = StyleSheet.create({
     },
     map: {
         ...StyleSheet.absoluteFillObject,
-    },
+    }
 });
