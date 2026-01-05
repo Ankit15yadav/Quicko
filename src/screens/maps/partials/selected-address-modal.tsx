@@ -64,7 +64,7 @@ const SelectedAddressPreview = ({
                 </View>
 
                 {/* Confirm button */}
-                <Skeleton height={50} backgroundColor="#123213" colorMode={theme}>
+                <Skeleton height={50} colorMode={theme}>
                     <Pressable
                         onPress={onConfirmPress}
                         style={({ pressed }) => [
@@ -94,7 +94,7 @@ export default SelectedAddressPreview;
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        bottom: 15,
+        bottom: 20,
         left: 5,
         right: 5,
         backgroundColor: "#1C1C1E",

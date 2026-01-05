@@ -44,7 +44,7 @@ export const useLocationManager = ({
         if (!ok) return;
 
         const location = await Location.getCurrentPositionAsync({
-            accuracy: Location.LocationAccuracy.Balanced
+            accuracy: Location.LocationAccuracy.High
         });
         return location;
     };

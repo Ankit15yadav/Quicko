@@ -17,6 +17,7 @@ const LocationContext = createContext<ILocationContext | null>(null);
 export const LocationProvider = ({ children }: PropsWithChildren) => {
     const [permissonState, requestPermissionAsync] = Location.useForegroundPermissions();
     const locationRef = useRef<Location.LocationObject | null>(null);
+    // TODO: to change the name of location to currentLocation and setCurrentLocation to use this for custom `take to my location button`
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
 
     const { fetchLocation, selectedAddress, handleOnRegionChangeComplete, isLoading, setIsLoading, setSelectedAddress } = useLocationManager({

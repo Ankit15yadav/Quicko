@@ -45,6 +45,7 @@ export default function RootLayout() {
           }} />
           <Stack.Screen name='(modals)/delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.85] }} />
           <Stack.Screen name='(modals)/add-address' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.5] }} />
+          <Stack.Screen name='(onboarding)' />
         </Stack>
         <StatusBar style="auto" />
       </GestureHandlerRootView>

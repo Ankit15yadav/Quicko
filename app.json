@@ -45,14 +45,14 @@
         }
       ],
       [
-         "expo-location",
+        "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Quicko to use your location.",
-          
+          "locationAlwaysAndWhenInUsePermission": "Allow Quicko to use your location."
         }
       ],
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
