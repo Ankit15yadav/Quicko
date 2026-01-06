@@ -8,3 +8,7 @@ export function HapticFeel(
         Haptic.impactAsync(Haptic.ImpactFeedbackStyle[touch ?? 'Light']);
     }, delay);
 }
+
+export function isTokenExpired(token: string | null) {
+    return false;
+}
