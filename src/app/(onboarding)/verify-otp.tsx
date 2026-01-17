@@ -1,14 +1,9 @@
-import { useLocalSearchParams } from "expo-router";
-import { Text, View } from "react-native";
+import UserVerificationScreen from "@src/screens/onboarding/verify-otp";
 
 const UserVerification = () => {
 
-    const { number } = useLocalSearchParams()
-
     return (
-        <View>
-            <Text>{number}</Text>
-        </View>
+        <UserVerificationScreen />
     )
 }
 

@@ -19,7 +19,7 @@ export const HeaderTextstyles: VariantStyles = StyleSheet.create({
         color: 'white',
     },
     'base-1': {
-        fontSize: 12,
+        fontSize: 8,
         fontWeight: 500,
         letterSpacing: 0.2,
         color: 'white'

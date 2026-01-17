@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const isRefreshTokenExpired = isTokenExpired(refreshToken);
             if (refreshToken && !isRefreshTokenExpired) {
                 const tokens = {
-                    accessToken: '',
+                    accessToken: 'ey.hello.this.is.access.token',
                     refreshToken: ''
                 };
                 await secureStorage.setItemAsync('accessToken', tokens.accessToken);
