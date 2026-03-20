@@ -1,10 +1,7 @@
-import UserVerificationScreen from "@src/screens/onboarding/verify-otp";
+import { VerifyOtpPage } from "@screens/onboarding/index";
 
 const UserVerification = () => {
-
-    return (
-        <UserVerificationScreen />
-    )
-}
+  return <VerifyOtpPage />;
+};
 
 export default UserVerification;

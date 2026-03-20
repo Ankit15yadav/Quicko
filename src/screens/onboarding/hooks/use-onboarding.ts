@@ -1,5 +1,7 @@
 import { ISendOtp } from "@src/services/operations/auth";
 import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Keyboard } from "react-native";
 import Toast from "react-native-toast-message";
 import z from "zod";
 import { ApiError, useSendOtp, useVerifyOtp } from "../api";
@@ -17,17 +19,25 @@ const schema = z.object({
 
 export const useOnboarding = () => {
   const router = useRouter();
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
-  const handleSendOtpSuccess = (data: unknown) => {};
+  const handleSendOtpSuccess = (data: unknown) => { };
 
-  const handleSendOtpError = (error: ApiError) => {};
+  const handleSendOtpError = (error: ApiError) => { };
 
   const { sendOtp, isSending, error } = useSendOtp({
     onSuccess: handleSendOtpSuccess,
     onError: handleSendOtpError,
   });
-
   const { verifyOtp, isVerifying, isSuccess } = useVerifyOtp({});
+
+  function handleKeyboardToggle() {
+    if (Keyboard.isVisible()) {
+      Keyboard.dismiss();
+      console.log("dismissedd")
+
+    }
+  }
 
   const handleSendOtp = async (payload: ISendOtp) => {
     const validationResult = schema.safeParse(payload);
@@ -65,8 +75,16 @@ export const useOnboarding = () => {
   };
 
   return {
-    handleSubmit: handleSendOtp,
-    isSending,
-    error,
+    sendOtp: {
+      handleSubmit: handleSendOtp,
+      isSending,
+      error,
+    },
+    number: {
+      setPhoneNumber, phoneNumber
+    },
+    keyboardHandler: {
+      handleKeyboardToggle
+    }
   };
 };

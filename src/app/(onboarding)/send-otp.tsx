@@ -1,7 +1,7 @@
-import UserOnboardingScreen from "@src/screens/onboarding/send-otp";
+import { SignInPage } from "@screens/onboarding/index";
 
 const UserOnboarding = () => {
-  return <UserOnboardingScreen />;
+  return <SignInPage />;
 };
 
 export default UserOnboarding;
