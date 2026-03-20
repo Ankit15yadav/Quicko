@@ -1,13 +1,7 @@
-import UserOnboardingScreen from "@src/screens/onboarding/send-otp"
-import { useLocalSearchParams } from "expo-router"
+import UserOnboardingScreen from "@src/screens/onboarding/send-otp";
 
 const UserOnboarding = () => {
+  return <UserOnboardingScreen />;
+};
 
-    const { number } = useLocalSearchParams()
-
-    return (
-        <UserOnboardingScreen />
-    )
-}
-
-export default UserOnboarding
+export default UserOnboarding;

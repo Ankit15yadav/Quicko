@@ -1,4 +1,5 @@
 import PageHeader from '@src/components/page-header';
+import { toastConfig } from '@src/config/toast.config';
 import { fontFamily } from '@src/constants/fonts';
 import Provider from '@src/provider';
 import { useFonts } from 'expo-font';
@@ -6,6 +7,7 @@ import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 // SplashScreen.setOptions({
 //   duration: 1000,
@@ -48,6 +50,7 @@ export default function RootLayout() {
           <Stack.Screen name='(onboarding)' />
         </Stack>
         <StatusBar style="auto" />
+        <Toast config={toastConfig} />
       </GestureHandlerRootView>
     </Provider>
 

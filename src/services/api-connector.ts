@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, AxiosRequestConfig, Method, } from 'axios';
-import * as secureStorage from 'expo-secure-store';
 
 const BASE_URL = process.env.EXPO_PUBLIC_QUICKO_BASE_URL;
 
@@ -55,29 +54,45 @@ export class RequestBuilder {
     }
 
     async execute<T>(): Promise<T> {
-        const response = await axiosInstance(this.config)
+    try {
+        const response = await axiosInstance(this.config);
+        console.log("response from execute:")
         return response.data as T;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+            const message = error.response?.data?.message ?? error.message;
+            
+            throw {
+                status,
+                error,
+                message,
+                data: error.response?.data ?? null,
+            };
+        }
+        throw new Error('An unexpected error occurred');
     }
+}
 }
 
 
-axiosInstance.interceptors.request.use(
-    async (config) => {
-        config.headers = config.headers ?? {};
+// axiosInstance.interceptors.request.use(
+//     async (config) => {
+//         config.headers = config.headers ?? {};
 
-        const token = await secureStorage.getItemAsync('accessToken');
-        if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`
-            console.log(config.headers)
-        }
+//         const token = await secureStorage.getItemAsync('accessToken');
+//         if (token) {
+//             config.headers['Authorization'] = `Bearer ${token}`
+//             console.log(config.headers)
+//         }
 
-        if (process.env.NODE_ENV === "development") {
-            console.log("[API REQUEST]", config.method?.toUpperCase(), config.url);
-        }
+//         if (process.env.NODE_ENV === "development") {
+//             console.log("[API REQUEST]", config.method?.toUpperCase(), config.url);
+//         }
 
-        return config;
-    },
-    (error) => Promise.reject(error)
-)
+//         return config;
+//     },
+//     (error) => Promise.reject(error)
+// )
 
 export const Request = () => new RequestBuilder();
