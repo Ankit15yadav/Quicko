@@ -1,4 +1,4 @@
-import { RadialGlowProps } from "./partials/radio-glow";
+import { RadialGlowProps } from "../../components/radio-glow";
 
 export const RADIAL_GLOWS: RadialGlowProps[] = [
   {
@@ -31,6 +31,30 @@ export const CHIP_ROWS = [
     { emoji: "🍕", label: "Pizza" },
     { emoji: "☕", label: "Coffee" },
     { emoji: "🥗", label: "Salad" },
+  ],
+  [
+    { emoji: "🍞", label: "Bread" },
+    { emoji: "🧈", label: "Butter" },
+    { emoji: "🧀", label: "Cheese" },
+    { emoji: "🍎", label: "Apples" },
+  ],
+  [
+    { emoji: "🍚", label: "Rice" },
+    { emoji: "🍝", label: "Pasta" },
+    { emoji: "🍗", label: "Chicken" },
+    { emoji: "🐟", label: "Fish" },
+  ],
+  [
+    { emoji: "🧼", label: "Soap" },
+    { emoji: "🪥", label: "Toothbrush" },
+    { emoji: "🪒", label: "Razor" },
+    { emoji: "🧻", label: "Toilet Paper" },
+  ],
+  [
+    { emoji: "🥤", label: "Soft Drink" },
+    { emoji: "🍔", label: "Burger" },
+    { emoji: "🍟", label: "Fries" },
+    { emoji: "🍰", label: "Cake" },
   ],
 ];
 

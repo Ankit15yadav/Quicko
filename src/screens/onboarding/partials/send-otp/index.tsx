@@ -1,8 +1,10 @@
+import FloatingChip from "@components/floating-chip";
+import RadialGlow from "@components/radio-glow";
+import MarqueeTicker from "@src/components/infinity-marquee-ticker";
 import TermsAndServices from "@src/components/terms-and-services";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Animated,
-  Easing,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -17,121 +19,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { CHIP_ROWS, RADIAL_GLOWS, TICKER_ITEMS } from "../../constants";
 import { useInitialAnimation } from "../../hooks/use-initial-animations";
 import { useOnboarding } from "../../hooks/use-onboarding";
-import RadialGlow from "../radio-glow";
 import { styles } from "../styles";
-
-// ─── FloatingChip ─────────────────────────────────────────────────────────────
-const FloatingChip = ({
-  emoji,
-  label,
-  delay,
-}: {
-  emoji: string;
-  label: string;
-  delay: number;
-}) => {
-  const mountAnim = useRef(new Animated.Value(0)).current;
-  const floatAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    // Mount: slide up + fade in
-    Animated.timing(mountAnim, {
-      toValue: 1,
-      duration: 500,
-      delay,
-      easing: Easing.out(Easing.back(1.4)),
-      useNativeDriver: true,
-    }).start();
-
-    // Continuous float — each chip has a slightly different period
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(floatAnim, {
-          toValue: 1,
-          duration: 1600 + delay * 0.8,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(floatAnim, {
-          toValue: 0,
-          duration: 1600 + delay * 0.8,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    ).start();
-  }, []);
-
-  const translateY = floatAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -7],
-  });
-
-  return (
-    <Animated.View
-      style={[
-        styles.chip,
-        {
-          opacity: mountAnim,
-          transform: [
-            {
-              translateY: Animated.add(
-                mountAnim.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [14, 0],
-                }),
-                translateY,
-              ),
-            },
-            {
-              scale: mountAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0.88, 1],
-              }),
-            },
-          ],
-        },
-      ]}
-    >
-      <Text style={styles.chipEmoji}>{emoji}</Text>
-      <Text style={styles.chipText}>{label}</Text>
-    </Animated.View>
-  );
-};
-
-// ─── MarqueeTicker ────────────────────────────────────────────────────────────
-const MarqueeTicker = () => {
-  const x = useRef(new Animated.Value(0)).current;
-  // Approximate total width of one copy of the list
-  const TILE_WIDTH = 1200;
-
-  useEffect(() => {
-    Animated.loop(
-      Animated.timing(x, {
-        toValue: -TILE_WIDTH,
-        duration: 16000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    ).start();
-  }, []);
-
-  const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
-
-  return (
-    <View style={styles.tickerWrapper}>
-      <Animated.View
-        style={[styles.tickerRow, { transform: [{ translateX: x }] }]}
-      >
-        {doubled.map((t, i) => (
-          <Text key={i} style={styles.tickerItem}>
-            {t}
-          </Text>
-        ))}
-      </Animated.View>
-    </View>
-  );
-};
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 const UserOnboardingScreen = () => {
@@ -143,8 +31,23 @@ const UserOnboardingScreen = () => {
     number: { phoneNumber, setPhoneNumber },
     keyboardHandler: { handleKeyboardToggle }
   } = useOnboarding();
+
   const { progress } = useKeyboardAnimation();
   const [isFocused, setIsFocused] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStartIndex((prev) => (prev + 2) % CHIP_ROWS.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const visibleRows = [
+    CHIP_ROWS[startIndex],
+    CHIP_ROWS[(startIndex + 1) % CHIP_ROWS.length],
+  ];
 
   // ── Keyboard-driven sheet movement ─────────────────────────────
   const sheetTranslateY = progress.interpolate({
@@ -194,10 +97,10 @@ const UserOnboardingScreen = () => {
                     ],
                   }}
                 >
-                  <View style={styles.liveBadge}>
+                  {/* <View style={styles.liveBadge}>
                     <View style={styles.liveDot} />
                     <Text style={styles.liveBadgeText}>Delivering near you</Text>
-                  </View>
+                  </View> */}
                 </Animated.View>
 
                 {/* Headline */}
@@ -221,7 +124,8 @@ const UserOnboardingScreen = () => {
                   <Text style={styles.heroAccent}>in 10 minutes</Text>
                 </Animated.Text>
 
-                {CHIP_ROWS.map((row, rowIdx) => (
+                {/* Floating chips */}
+                {visibleRows.map((row, rowIdx) => (
                   <View key={rowIdx} style={styles.chipRow}>
                     {row.map((chip, i) => (
                       <FloatingChip
@@ -234,7 +138,8 @@ const UserOnboardingScreen = () => {
                 ))}
 
                 {/* Scrolling ticker */}
-                <MarqueeTicker />
+                <MarqueeTicker tickerItem={TICKER_ITEMS} />
+
               </View>
             </Animated.View>
 

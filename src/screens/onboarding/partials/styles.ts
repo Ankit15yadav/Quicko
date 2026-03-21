@@ -67,43 +67,6 @@ export const styles = StyleSheet.create({
     gap: 7,
     paddingHorizontal: 4,
   },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.055)",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.09)",
-    borderRadius: 9,
-    paddingHorizontal: 9,
-    paddingVertical: 5,
-    gap: 5,
-  },
-  chipEmoji: {
-    fontSize: 12,
-  },
-  chipText: {
-    color: "rgba(255,255,255,0.6)",
-    fontSize: 11,
-    fontWeight: "500",
-    fontFamily: fontFamily.BlueBubble,
-  },
-
-  tickerWrapper: {
-    overflow: "hidden",
-    width: "100%",
-    marginTop: 2,
-  },
-  tickerRow: {
-    flexDirection: "row",
-  },
-  tickerItem: {
-    color: "rgba(255,255,255,0.35)",
-    fontSize: 10.5,
-    fontWeight: "500",
-    marginRight: 24,
-    letterSpacing: 0.2,
-    fontFamily: fontFamily.BlueBubble,
-  },
 
   // ─── Bottom Sheet ────────────────────────────────────────────────
   bottomSheet: {
