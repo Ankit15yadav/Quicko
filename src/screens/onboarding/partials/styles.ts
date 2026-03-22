@@ -76,22 +76,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 22,
     paddingTop: 20,
     paddingBottom: 12,
-    borderTopWidth: 1,
+    borderTopWidth: 3,
     borderTopColor: "rgba(255,255,255,0.07)",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: -8 },
     shadowOpacity: 0.5,
     shadowRadius: 20,
     elevation: 20,
-  },
-
-  sheetHandle: {
-    width: 36,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: "rgba(255,255,255,0.12)",
-    alignSelf: "center",
-    marginBottom: 20,
   },
 
   brandRow: {
@@ -119,16 +110,9 @@ export const styles = StyleSheet.create({
   brandTextGroup: {
     gap: 2,
   },
-  brandName: {
-    color: "#FFFFFF",
-    fontSize: 19,
-    fontWeight: "700",
-    letterSpacing: -0.3,
-    fontFamily: fontFamily.BlueBubble,
-  },
   brandSub: {
     color: "rgba(255,255,255,0.38)",
-    fontSize: 12.5,
+    fontSize: 15,
     fontWeight: "400",
     fontFamily: fontFamily.BlueBubble,
   },
@@ -176,7 +160,7 @@ export const styles = StyleSheet.create({
   },
   countryCode: {
     color: "#FFFFFF",
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "600",
     marginRight: 10,
     fontFamily: fontFamily.BlueBubble,
@@ -198,7 +182,7 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   continueBtnActive: {
-    backgroundColor: "#30b430",
+    backgroundColor: "#0C831F",
   },
   continueBtnInactive: {
     backgroundColor: "#1E1E1E",

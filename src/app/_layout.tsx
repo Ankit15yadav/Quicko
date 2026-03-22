@@ -1,5 +1,5 @@
 import PageHeader from '@src/components/page-header';
-import { toastConfig } from '@src/config/toast.config';
+import { toastConfig } from '@src/config';
 import { fontFamily } from '@src/constants/fonts';
 import Provider from '@src/provider';
 import { useFonts } from 'expo-font';

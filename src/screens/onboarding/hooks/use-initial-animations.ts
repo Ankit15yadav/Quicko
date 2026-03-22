@@ -1,17 +1,17 @@
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
-// interface IAnimationRef {
-//     badgeAnim: Animated.Value;
-//     headlineAnim: Animated.Value;
-//     sheetAnim: Animated.Value;
-// }
+interface IAnimationRef {
+    // badgeAnim: Animated.Value;
+    // headlineAnim: Animated.Value;
+    sheetAnim: Animated.Value;
+}
 
-export function useInitialAnimation() {
+export function useInitialAnimation({ sheetAnim }: IAnimationRef) {
 
     const badgeAnim = useRef(new Animated.Value(0)).current;
     const headlineAnim = useRef(new Animated.Value(0)).current;
-    const sheetAnim = useRef(new Animated.Value(0)).current;
+    // const sheetAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
         Animated.stagger(120, [

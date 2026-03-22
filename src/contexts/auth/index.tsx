@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const refreshToken = await secureStorage.getItemAsync('refreshToken');
 
             if (!accessToken && !refreshToken) {
-                console.log('access token is not present')
                 dispatch({ type: 'SET_USER', payload: null });
                 replace('/(onboarding)/send-otp');
                 return;

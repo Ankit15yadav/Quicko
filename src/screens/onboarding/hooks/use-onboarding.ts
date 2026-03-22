@@ -32,10 +32,8 @@ export const useOnboarding = () => {
   const { verifyOtp, isVerifying, isSuccess } = useVerifyOtp({});
 
   function handleKeyboardToggle() {
-    if (Keyboard.isVisible()) {
+    if (Keyboard && Keyboard.isVisible()) {
       Keyboard.dismiss();
-      console.log("dismissedd")
-
     }
   }
 
@@ -51,7 +49,7 @@ export const useOnboarding = () => {
       if (validationError && typeof validationError === "string") {
         Toast.show({
           autoHide: true,
-          type: "error",
+          type: "success",
           text1: validationError,
         });
       }
