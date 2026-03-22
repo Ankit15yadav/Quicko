@@ -1,4 +1,4 @@
-import SquircleCard from "@src/components/squircle-card"
+import SquircleCard from "@src/components/squircles/card"
 import { Image, Text, View } from "react-native"
 import { styles } from "../styles"
 

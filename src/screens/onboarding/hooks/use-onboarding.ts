@@ -1,4 +1,4 @@
-import { ISendOtp } from "@src/services/operations/auth";
+import { ISendOtp, IVerifyOtp } from "@src/services/operations/auth";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Keyboard } from "react-native";
@@ -11,7 +11,7 @@ const schema = z.object({
     .string()
     .length(10, {
       abort: true,
-      error: "Phone number must be exactly 10 digits",
+      error: "Please enter a valid mobile number of 10 digits",
     })
     .regex(/^[6-9]\d{9}$/, "Phone number must start with 6, 7, 8, or 9")
     .nonempty(),
@@ -21,9 +21,9 @@ export const useOnboarding = () => {
   const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
-  const handleSendOtpSuccess = (data: unknown) => { };
+  const handleSendOtpSuccess = (data: unknown) => {};
 
-  const handleSendOtpError = (error: ApiError) => { };
+  const handleSendOtpError = (error: ApiError) => {};
 
   const { sendOtp, isSending, error } = useSendOtp({
     onSuccess: handleSendOtpSuccess,
@@ -49,7 +49,6 @@ export const useOnboarding = () => {
       if (validationError && typeof validationError === "string") {
         Toast.show({
           autoHide: true,
-          type: "success",
           text1: validationError,
         });
       }
@@ -72,17 +71,29 @@ export const useOnboarding = () => {
     }
   };
 
+  const handleVerifyOtp = async (payload: IVerifyOtp) => {
+    try {
+      const result = await verifyOtp(payload);
+    } catch (error) {
+      // handled by onError in useVerifyOtp
+    }
+  };
+
   return {
     sendOtp: {
       handleSubmit: handleSendOtp,
       isSending,
       error,
     },
+    verifyOtp: {
+      handleSubmit: handleVerifyOtp,
+    },
     number: {
-      setPhoneNumber, phoneNumber
+      setPhoneNumber,
+      phoneNumber,
     },
     keyboardHandler: {
-      handleKeyboardToggle
-    }
+      handleKeyboardToggle,
+    },
   };
 };

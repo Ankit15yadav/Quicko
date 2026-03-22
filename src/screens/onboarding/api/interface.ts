@@ -4,9 +4,11 @@ export interface IVerifyOtpResponse {
 }
 
 export interface IVerifyOtpData {
-  isNewUser: boolean;
-  userId: string;
-  tokens: IAuthTokens;
+  data: {
+    isNewUser: boolean;
+    userId: string;
+    tokens: IAuthTokens;
+  };
 }
 
 export interface IAuthTokens {

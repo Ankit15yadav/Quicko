@@ -66,3 +66,42 @@ export const TICKER_ITEMS = [
   "🌙 Open till midnight",
   "💚 Fresh & quality guaranteed",
 ];
+
+export interface MarqueeItem {
+  id: string;
+  emoji: string;
+  label: string;
+  bg: string;
+}
+
+export const ROW_1: MarqueeItem[] = [
+  { id: "milk", emoji: "🥛", label: "Milk", bg: "#1C2B3A" },
+  { id: "fruits", emoji: "🍎", label: "Fruits", bg: "#2B1A1A" },
+  { id: "juices", emoji: "🧃", label: "Juices", bg: "#1A2B1A" },
+  { id: "eggs", emoji: "🥚", label: "Eggs", bg: "#2B2820" },
+  { id: "dairy", emoji: "🧈", label: "Dairy", bg: "#2B251A" },
+  { id: "veggies", emoji: "🥦", label: "Veggies", bg: "#1A2B22" },
+  { id: "bakery", emoji: "🍞", label: "Bakery", bg: "#2B2218" },
+];
+
+export const ROW_2: MarqueeItem[] = [
+  { id: "skincare", emoji: "🧴", label: "Skincare", bg: "#281A2B" },
+  { id: "medicines", emoji: "💊", label: "Medicines", bg: "#1A1A2B" },
+  { id: "cleaning", emoji: "🧹", label: "Cleaning", bg: "#1A2B28" },
+  { id: "snacks", emoji: "🍫", label: "Snacks", bg: "#2B1E1A" },
+  { id: "meat", emoji: "🥩", label: "Meat", bg: "#2B1A1E" },
+  { id: "staples", emoji: "🫙", label: "Staples", bg: "#22221A" },
+  { id: "noodles", emoji: "🍜", label: "Noodles", bg: "#2B2018" },
+];
+
+export const ROW_3: MarqueeItem[] = [
+  { id: "icecream", emoji: "🧊", label: "Ice Cream", bg: "#1A2428" },
+  { id: "beverages", emoji: "🫧", label: "Beverages", bg: "#1A1E2B" },
+  { id: "petcare", emoji: "🐾", label: "Pet Care", bg: "#221A2B" },
+  { id: "plants", emoji: "🪴", label: "Plants", bg: "#1A2B1A" },
+  { id: "electronics", emoji: "🔋", label: "Electronics", bg: "#1A1A1A" },
+  { id: "gaming", emoji: "🎮", label: "Gaming", bg: "#1A1A2B" },
+  { id: "laundry", emoji: "🧺", label: "Laundry", bg: "#1E1A2B" },
+];
+
+export const MARQUEE_ROWS = [ROW_1, ROW_2, ROW_3];

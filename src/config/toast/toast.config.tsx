@@ -1,9 +1,11 @@
 import { BaseToastProps, ToastConfig } from "react-native-toast-message";
-import { DefaultToast, SuccessToast, } from "./partials/toast.layout";
+import { DefaultToast } from "./partials/toast.layout";
 
 const toastConfig: ToastConfig = {
-  success: (props: BaseToastProps) => <SuccessToast {...props} />,
-  default: (props: BaseToastProps) => <DefaultToast {...props} />
+  default: (props: BaseToastProps) => <DefaultToast {...props} />,
+  success: (props: BaseToastProps) => <DefaultToast {...props} />,
+  info: (props: BaseToastProps) => <DefaultToast {...props} />,
+  error: (props: BaseToastProps) => <DefaultToast {...props} />,
 };
 
-export default toastConfig
+export default toastConfig;

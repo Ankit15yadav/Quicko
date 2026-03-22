@@ -5,6 +5,8 @@ import {
   VerifyOtp,
 } from "@src/services/operations/auth";
 import { useMutation } from "@tanstack/react-query";
+import { router } from "expo-router";
+import * as secureStorage from "expo-secure-store";
 
 const MUTATION_KEYS = {
   VERIFY_OTP: ["verify-otp"],
@@ -46,7 +48,14 @@ export const useVerifyOtp = (options?: MutationCallbacks) => {
     mutationKey: MUTATION_KEYS.VERIFY_OTP,
     mutationFn: (data: IVerifyOtp) => VerifyOtp(data),
     retry: false,
-    onSuccess: options?.onSuccess,
+    onSuccess: async (apiResponse) => {
+      const {
+        data: { tokens },
+      } = apiResponse;
+      await secureStorage.setItemAsync("accessToken", tokens.accessToken);
+      await secureStorage.setItemAsync("refreshToken", tokens.refreshToken);
+      router.replace("/(main)");
+    },
     onError: (error: ApiError) => {
       console.error(
         "[VerifyOtp Error]:",

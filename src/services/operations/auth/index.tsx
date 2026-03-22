@@ -4,16 +4,18 @@ import { Request } from "@src/services/api-connector";
 
 export interface IVerifyOtp {
   otp: string;
+  phoneNumber: string;
 }
 
 export interface ISendOtp {
   phoneNumber: string;
 }
 
-export async function VerifyOtp({ otp }: IVerifyOtp) {
+export async function VerifyOtp({ otp, phoneNumber }: IVerifyOtp) {
   const endpoint = getEndpoint("VERIFY_OTP");
   const response = await Request()
-    .body<IVerifyOtp>({ otp })
+    .body({ otp })
+    .params({ phoneNumber })
     .headers({ apiVer: 1 })
     .post<IVerifyOtpData>(endpoint);
 
