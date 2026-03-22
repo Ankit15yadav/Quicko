@@ -1,4 +1,4 @@
-import MainHeaderWrapper from "@src/components/header";
+import MainHeaderWrapper from "@src/components/homepage-header";
 import { fontFamily } from "@src/constants/fonts";
 import { HapticFeel } from "@src/utils";
 import { Tabs } from "expo-router";

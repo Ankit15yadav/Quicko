@@ -1,16 +1,10 @@
 import { useLocation } from '@src/contexts/location';
 import { useEffect, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapView, { EdgePadding, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import { StyleSheet, Text, View } from 'react-native';
+import MapView, { EdgePadding, PROVIDER_GOOGLE } from 'react-native-maps';
+import GoToCurrentLocationCTA from "./partials/current-location-button";
 import PinLocationMarker from './partials/marker';
 import SelectedAddressPreview from './partials/selected-address-modal';
-
-const INITIAL_REGION: Region = {
-    "latitude": 18.5204,
-    "longitude": 73.8567,
-    "latitudeDelta": 0.2000,
-    "longitudeDelta": 0.2200
-}
 
 const PADDING: EdgePadding = {
     bottom: 10,
@@ -28,11 +22,19 @@ const MapPinLocation = () => {
             mapRef.current.animateToRegion({
                 latitude: location?.coords?.latitude,
                 longitude: location?.coords?.longitude,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
+                latitudeDelta: 0.001,
+                longitudeDelta: 0.001,
             }, 1000);
         }
     }, [location]);
+
+    if (!location && !mapRef.current) {
+        return (
+            <View>
+                <Text>Location not presnet</Text>
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>
@@ -40,24 +42,19 @@ const MapPinLocation = () => {
                 ref={mapRef}
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
-                initialRegion={location ? {
-                    latitude: location?.coords?.latitude,
-                    longitude: location?.coords?.longitude,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
-                } : INITIAL_REGION}
-                showsUserLocation
-                showsMyLocationButton
                 followsUserLocation
                 mapPadding={PADDING}
+                showsBuildings
                 onRegionChangeComplete={handleOnRegionChangeComplete}
                 onRegionChangeStart={() => {
                     setIsLoading?.(true);
                     setSelectedAddress(undefined)
                 }}
             />
+
             <PinLocationMarker />
             <SelectedAddressPreview address={selectedAddress?.[0]} isLoading={isLoading} />
+            <GoToCurrentLocationCTA ref={mapRef} location={location} />
         </View>
     )
 };

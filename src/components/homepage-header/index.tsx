@@ -1,14 +1,14 @@
 import PressableHaptic from '@src/components/pressable-haptics'
+import { useLocation } from '@src/contexts/location'
 import { useRouter } from 'expo-router'
 import { ChevronDown } from 'lucide-react-native'
 import React from 'react'
 import { Text, View } from 'react-native'
-import CirculatButton from '../icon-buttons'
-import { RIGHT_SECTION_DATA } from './constant'
 import { styles } from "./styles"
 
 const MainHeaderWrapper = () => {
     const { push } = useRouter();
+    const { location, selectedAddress } = useLocation()
 
     return (
         <View style={styles.container} >
@@ -30,20 +30,20 @@ const MainHeaderWrapper = () => {
                         </Text>
 
                         <View style={styles.current_location}>
-                            <Text style={[styles.color]}> FLOOR 3, 301</Text>
+                            <Text style={[styles.color]}> {selectedAddress?.[0]?.name ?? location?.coords.longitude}</Text>
                             <ChevronDown color="white" size={15} />
                         </View>
                     </View>
                 </View>
             </PressableHaptic >
 
-            <View style={styles.rightSection} >
+            {/* <View style={styles.rightSection} >
                 {
                     RIGHT_SECTION_DATA.map((el, idx) => (
                         <CirculatButton {...el} key={`${el} + ${idx}`} />
                     ))
                 }
-            </View >
+            </View > */}
         </View >
     )
 }
