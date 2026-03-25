@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   // ─── Root ───────────────────────────────────────────────────────
   safeArea: {
     flex: 1,
-    backgroundColor: "#080808",
+    backgroundColor: "#bbafafff",
   },
   keyboardView: {
     flex: 1,

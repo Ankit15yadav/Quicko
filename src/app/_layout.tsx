@@ -1,13 +1,13 @@
-import PageHeader from '@src/components/page-header';
-import { toastConfig } from '@src/config';
-import { fontFamily } from '@src/constants/fonts';
-import Provider from '@src/provider';
-import { useFonts } from 'expo-font';
-import { Stack, useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import 'react-native-reanimated';
-import Toast from 'react-native-toast-message';
+import PageHeader from "@src/components/page-header";
+import { toastConfig } from "@src/config";
+import { fontFamily } from "@src/constants/fonts";
+import Provider from "@src/provider";
+import { useFonts } from "expo-font";
+import { Stack, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "react-native-reanimated";
+import Toast from "react-native-toast-message";
 
 // SplashScreen.setOptions({
 //   duration: 1000,
@@ -17,10 +17,10 @@ import Toast from 'react-native-toast-message';
 // SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { dismissAll, push } = useRouter()
-  const [loaded, error] = useFonts({
-    [fontFamily.BlueBubble]: require("../assets/font/WorkSans.ttf")
-  })
+  const { dismissAll, push } = useRouter();
+  const [_, error] = useFonts({
+    [fontFamily.BlueBubble]: require("../assets/font/WorkSans.ttf"),
+  });
 
   if (error) {
     // To show the app error screen
@@ -37,23 +37,45 @@ export default function RootLayout() {
     <Provider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-          <Stack.Screen name='(main)/select-location' options={{
-            headerShown: true,
-            header: () => <PageHeader name='Confirm map pin location' backFn={() => {
-              dismissAll();
-              push('/(modals)/delivery-location')
-            }} />
-          }} />
-          <Stack.Screen name='(modals)/delivery-location' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: false, sheetAllowedDetents: [0.85] }} />
-          <Stack.Screen name='(modals)/add-address' options={{ headerShown: false, presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.5] }} />
-          <Stack.Screen name='(onboarding)' />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(main)/select-location"
+            options={{
+              headerShown: true,
+              header: () => (
+                <PageHeader
+                  name="Confirm map pin location"
+                  backFn={() => {
+                    dismissAll();
+                    push("/(modals)/delivery-location");
+                  }}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="(modals)/delivery-location"
+            options={{
+              headerShown: false,
+              presentation: "formSheet",
+              sheetGrabberVisible: false,
+              sheetAllowedDetents: [0.85],
+            }}
+          />
+          <Stack.Screen
+            name="(modals)/add-address"
+            options={{
+              headerShown: false,
+              presentation: "formSheet",
+              sheetGrabberVisible: true,
+              sheetAllowedDetents: [0.5],
+            }}
+          />
+          <Stack.Screen name="(onboarding)" />
         </Stack>
         <StatusBar style="auto" />
         <Toast config={toastConfig} />
       </GestureHandlerRootView>
     </Provider>
-
   );
 }
-

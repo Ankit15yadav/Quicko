@@ -7,6 +7,7 @@ import Svg, { Path } from "react-native-svg";
 interface SquircleCardProps {
   width?: number;
   height?: number;
+  exponent?: number;
   style?: StyleProp<ViewStyle>;
   cornerRadius?: number; // kept for API compatibility, but superellipse shape is determined by exponent
   children: React.ReactNode;
@@ -15,10 +16,11 @@ interface SquircleCardProps {
 const SquircleCard = ({
   width = 350,
   height = 500,
+  exponent,
   style,
   children,
 }: Omit<SquircleCardProps, "cornerRadius">) => {
-  const maskPath = squirclePath(width, height);
+  const maskPath = squirclePath(width, height, exponent);
 
   return (
     <MaskedView

@@ -1,15 +1,15 @@
 // components/SquircleMarquee.tsx
 import SquircleCard from "@src/components/squircles/card";
+import { MARQUEE_ROWS, MarqueeItem } from "@src/screens/onboarding/constants";
 import React, { useEffect, useRef } from "react";
 import {
-    Animated,
-    Easing,
-    StyleSheet,
-    Text,
-    View,
-    useWindowDimensions,
+  Animated,
+  Easing,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
 } from "react-native";
-import { MARQUEE_ROWS, MarqueeItem } from "../../constants";
 
 // ─── single chip using YOUR SquircleCard ─────────────────────────────────────
 interface ChipProps {
