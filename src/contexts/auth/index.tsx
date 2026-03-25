@@ -3,11 +3,11 @@ import { useRouter } from "expo-router";
 import * as secureStorage from "expo-secure-store";
 import { jwtDecode } from "jwt-decode";
 import React, {
-    createContext,
-    ReactNode,
-    useContext,
-    useEffect,
-    useReducer,
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
 } from "react";
 import { IUser } from "./interface";
 
@@ -57,10 +57,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const accessToken = await secureStorage.getItemAsync("accessToken");
       const refreshToken = await secureStorage.getItemAsync("refreshToken");
 
-      console.log("tokens", {
-        accessToken,
-        refreshToken,
-      });
+      if (!accessToken && !refreshToken) {
+        dispatch({ type: "SET_USER", payload: null });
+        replace("/(onboarding)/verify-otp");
+        return;
+      }
 
       const isAccessTokenExpired = isTokenExpired(accessToken);
       if (accessToken && !isAccessTokenExpired) {
@@ -113,7 +114,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await secureStorage.deleteItemAsync("refreshToken");
     dispatch({ type: "LOGOUT" });
     dismissAll();
-    replace("/(onboarding)/send-otp");
+    push("/(onboarding)/send-otp");
   };
 
   useEffect(() => {

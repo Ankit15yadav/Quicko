@@ -12,5 +12,5 @@ export const usePageLoadOnce = (cb: IPageLoadOnce) => {
       return;
     }
     return;
-  }, []);
+  }, [cb]);
 };

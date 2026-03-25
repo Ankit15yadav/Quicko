@@ -13,14 +13,14 @@ interface IProvider extends PropsWithChildren {}
 export default function Provider({ children }: IProvider) {
   const queryClient = new QueryClient();
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <KeyboardProvider>
           <StorageProvider>
             <LocationProvider>{children}</LocationProvider>
           </StorageProvider>
         </KeyboardProvider>
-      </QueryClientProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

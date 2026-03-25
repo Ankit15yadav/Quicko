@@ -11,10 +11,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useOnboarding } from "../../hooks/use-onboarding";
-import SquircleMarquee from "../hero-section";
-import InputContainerHeader from "../input-container-header";
-import PhoneNumberInput from "../phone-input";
 import { styles } from "../styles";
+import SquircleMarquee from "./partials/hero-section";
+import InputContainerHeader from "./partials/input-container-header";
+import PhoneNumberInput from "./partials/phone-input";
 
 const UserOnboardingScreen = () => {
   const {

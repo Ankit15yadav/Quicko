@@ -1,4 +1,5 @@
 import { ISendOtp, IVerifyOtp } from "@src/services/operations/auth";
+import { HttpStatusCode } from "axios";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Keyboard } from "react-native";
@@ -29,7 +30,7 @@ export const useOnboarding = () => {
     onSuccess: handleSendOtpSuccess,
     onError: handleSendOtpError,
   });
-  const { verifyOtp, isVerifying, isSuccess } = useVerifyOtp({});
+  const { verifyOtp, error: verifyOtpError } = useVerifyOtp({});
 
   function handleKeyboardToggle() {
     if (Keyboard && Keyboard.isVisible()) {
@@ -43,7 +44,7 @@ export const useOnboarding = () => {
     if (!validationResult.success) {
       const { properties } = z.treeifyError(validationResult.error);
       const { phoneNumber } = properties ?? {};
-      console.log(phoneNumber?.errors);
+
       const validationError = phoneNumber?.errors[0];
 
       if (validationError && typeof validationError === "string") {
@@ -79,6 +80,13 @@ export const useOnboarding = () => {
     }
   };
 
+  const isOtpVerificationError = !!(
+    verifyOtpError &&
+    (verifyOtpError.message || verifyOtpError?.data?.message) &&
+    (verifyOtpError.status === HttpStatusCode.Unauthorized ||
+      verifyOtpError.status === HttpStatusCode.Gone)
+  );
+
   return {
     sendOtp: {
       handleSubmit: handleSendOtp,
@@ -87,6 +95,8 @@ export const useOnboarding = () => {
     },
     verifyOtp: {
       handleSubmit: handleVerifyOtp,
+      error: verifyOtpError,
+      isVerificationError: isOtpVerificationError,
     },
     number: {
       setPhoneNumber,
