@@ -1,6 +1,7 @@
+import { ThemeType } from "@src/theme";
 import { StyleSheet } from "react-native";
 
-export const getBaseStyle = (screenHeight: number) =>
+export const getBaseStyle = (screenHeight: number, theme?: ThemeType) =>
   StyleSheet.create({
     base: {
       marginTop: screenHeight * 0.02,
@@ -11,6 +12,6 @@ export const getBaseStyle = (screenHeight: number) =>
       color: "grey",
     },
     resendText: {
-      color: "#0C831F",
+      color: theme?.brand.primary,
     },
   });

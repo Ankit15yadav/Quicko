@@ -6,6 +6,8 @@ import {
 } from "@src/services/operations/auth";
 import { useMutation } from "@tanstack/react-query";
 import { HttpStatusCode } from "axios";
+import { router } from "expo-router";
+import * as secureStorage from "expo-secure-store";
 import Toast from "react-native-toast-message";
 
 const MUTATION_KEYS = {
@@ -50,10 +52,20 @@ export const useVerifyOtp = (options?: MutationCallbacks) => {
     retry: false,
     onSuccess: async (apiResponse) => {
       const {
-        data: { tokens },
+        data: { tokens, userId, isNewUser },
       } = apiResponse;
-      // await secureStorage.setItemAsync("accessToken", tokens.accessToken);
-      // await secureStorage.setItemAsync("refreshToken", tokens.refreshToken);
+      await secureStorage.setItemAsync("accessToken", tokens.accessToken);
+      await secureStorage.setItemAsync("refreshToken", tokens.refreshToken);
+
+      router.dismissAll();
+      if (isNewUser) {
+        router.push({
+          pathname: "/(onboarding)/user-info",
+          params: {
+            id: userId,
+          },
+        });
+      }
     },
     onError: (error: ApiError) => {
       console.log(error);

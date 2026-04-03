@@ -1,3 +1,4 @@
+import { useThemedStyles } from "@src/common/hooks";
 import PressableHaptic from "@src/components/pressable-haptics";
 import { Text } from "react-native";
 import { MESSAGES } from "../../constants";
@@ -10,19 +11,23 @@ interface IResendOtp {
 }
 
 const TimerSection = ({ screenHeight, timer }: Omit<IResendOtp, "reset">) => {
-  const s = getBaseStyle(screenHeight);
+  const { base, timerText } = useThemedStyles((theme) =>
+    getBaseStyle(screenHeight, theme),
+  );
   return (
-    <Text style={[s.base, s.timerText]}>
+    <Text style={[base, timerText]}>
       {MESSAGES.RESEND_OTP} in {timer}s
     </Text>
   );
 };
 
 const ResendSection = ({ reset, screenHeight }: Omit<IResendOtp, "timer">) => {
-  const s = getBaseStyle(screenHeight);
+  const { base, resendText } = useThemedStyles((theme) =>
+    getBaseStyle(screenHeight, theme),
+  );
   return (
     <PressableHaptic onPress={reset}>
-      <Text style={[s.base, s.resendText]}>{MESSAGES.RESEND_OTP}</Text>
+      <Text style={[base, resendText]}>{MESSAGES.RESEND_OTP}</Text>
     </PressableHaptic>
   );
 };

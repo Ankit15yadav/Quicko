@@ -1,5 +1,6 @@
 // components/SquircleMarquee.tsx
 import SquircleCard from "@src/components/squircles/card";
+import { useTheme } from "@src/contexts/theme";
 import { MARQUEE_ROWS, MarqueeItem } from "@src/screens/onboarding/constants";
 import React, { useEffect, useRef } from "react";
 import {
@@ -17,17 +18,23 @@ interface ChipProps {
   size: number;
 }
 
-const Chip: React.FC<ChipProps> = ({ item, size }) => (
-  <SquircleCard
-    width={size}
-    height={size}
-    style={{ backgroundColor: item.bg }} // passes straight into your style prop
-  >
-    <View style={styles.chipInner}>
-      <Text style={[styles.emoji, { fontSize: size * 0.6 }]}>{item.emoji}</Text>
-    </View>
-  </SquircleCard>
-);
+const Chip: React.FC<ChipProps> = ({ item, size }) => {
+  const { theme } = useTheme();
+
+  return (
+    <SquircleCard
+      width={size}
+      height={size}
+      style={{ backgroundColor: theme.bg.secondary }} // passes straight into your style prop
+    >
+      <View style={styles.chipInner}>
+        <Text style={[styles.emoji, { fontSize: size * 0.6 }]}>
+          {item.emoji}
+        </Text>
+      </View>
+    </SquircleCard>
+  );
+};
 
 // ─── one infinite scrolling row ───────────────────────────────────────────────
 interface RowProps {

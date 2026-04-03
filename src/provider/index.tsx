@@ -3,6 +3,7 @@
 import { AuthProvider } from "@src/contexts/auth";
 import { LocationProvider } from "@src/contexts/location";
 import { StorageProvider } from "@src/contexts/storage";
+import { ThemeProvider } from "@src/contexts/theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
 import { KeyboardProvider } from "react-native-keyboard-controller";
@@ -17,7 +18,9 @@ export default function Provider({ children }: IProvider) {
       <AuthProvider>
         <KeyboardProvider>
           <StorageProvider>
-            <LocationProvider>{children}</LocationProvider>
+            <ThemeProvider>
+              <LocationProvider>{children}</LocationProvider>
+            </ThemeProvider>
           </StorageProvider>
         </KeyboardProvider>
       </AuthProvider>

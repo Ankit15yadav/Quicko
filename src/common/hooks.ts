@@ -1,4 +1,13 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { useTheme } from "@src/contexts/theme";
+import { ThemeType } from "@src/theme";
+import {
+  RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Animated } from "react-native";
 
 export const useTimer = (seconds: number = 60) => {
@@ -78,4 +87,9 @@ export const useShakeAnimation = ({
   };
 
   return { triggerShake };
+};
+
+export const useThemedStyles = <T>(factory: (theme: ThemeType) => T): T => {
+  const { theme } = useTheme();
+  return useMemo(() => factory(theme), [theme]);
 };

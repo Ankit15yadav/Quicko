@@ -16,7 +16,7 @@ export const DefaultToast = (props: BaseToastProps) => {
     <BlurView
       experimentalBlurMethod="dimezisBlurView"
       intensity={35}
-      tint="light"
+      tint="dark"
       style={[styles.container, styles.blurView]}
     >
       <SquircleCard width={size} height={size} style={styles.squircleCard}>

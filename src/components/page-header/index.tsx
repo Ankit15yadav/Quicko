@@ -1,3 +1,5 @@
+import { useThemedStyles } from "@src/common/hooks";
+import { useTheme } from "@src/contexts/theme";
 import { useRouter } from "expo-router";
 import { ChevronLeft, Share } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
@@ -12,6 +14,8 @@ interface IPageHeader {
 
 const PageHeader = ({ name, backFn, showShareButton = false }: IPageHeader) => {
   const { back, canGoBack } = useRouter();
+  const { theme } = useTheme();
+  const headerStyles = useThemedStyles((theme) => styles(theme));
 
   const canUserGoBack = canGoBack();
 
@@ -23,19 +27,19 @@ const PageHeader = ({ name, backFn, showShareButton = false }: IPageHeader) => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.container}>
+    <View style={headerStyles.wrapper}>
+      <View style={headerStyles.container}>
         {/* {canUserGoBack && ( */}
-        <Pressable style={styles.leftSection} onPress={handleBackClick}>
-          <ChevronLeft size={28} color="white" />
+        <Pressable style={headerStyles.leftSection} onPress={handleBackClick}>
+          <ChevronLeft size={28} color={theme.text.primary} />
         </Pressable>
         {/* )} */}
 
-        <View style={styles.centerSection}>
-          <Text style={styles.headerText}>{name}</Text>
+        <View style={headerStyles.centerSection}>
+          <Text style={headerStyles.headerText}>{name}</Text>
         </View>
 
-        <View style={styles.rightSection}>
+        <View style={headerStyles.rightSection}>
           {showShareButton && (
             <Pressable>
               <Share size={18} color="#333" />

@@ -1,4 +1,4 @@
-import { useTimer } from "@src/common/hooks";
+import { useThemedStyles, useTimer } from "@src/common/hooks";
 import { usePageLoadOnce } from "@src/common/use-page-load-once";
 import { useLocalSearchParams } from "expo-router";
 import { OTPInputRef } from "input-otp-native";
@@ -29,13 +29,17 @@ const UserVerificationScreen = () => {
 
   const onComplete = (otp: string) => {
     handleSubmit({ otp, phoneNumber: phoneNumberToUse });
-    ref.current?.clear();
+    setTimeout(() => {
+      ref.current?.clear();
+    }, 300);
   };
 
-  const styles = getStyles(screenHeight);
+  const { container } = useThemedStyles((theme) =>
+    getStyles(screenHeight, theme),
+  );
 
   return (
-    <View style={styles.container}>
+    <View style={container}>
       {/* otp sent message section */}
       <OtpSentNotice
         phoneNumber={phoneNumberToUse}

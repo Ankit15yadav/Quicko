@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (!accessToken && !refreshToken) {
         dispatch({ type: "SET_USER", payload: null });
-        replace("/(onboarding)/verify-otp");
+        replace("/(onboarding)/send-otp");
         return;
       }
 

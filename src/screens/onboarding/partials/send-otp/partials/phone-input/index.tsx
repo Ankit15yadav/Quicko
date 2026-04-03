@@ -1,7 +1,8 @@
+import { useThemedStyles } from "@src/common/hooks";
 import { CircleX } from "lucide-react-native";
 import React, { Dispatch, SetStateAction } from "react";
 import { Text, TextInput, View } from "react-native";
-import { styles } from "../../../styles";
+import { styles as sendOtpStyles } from "../../styles";
 
 interface IPhoneNumberInput {
   isFocused: boolean;
@@ -19,6 +20,9 @@ const PhoneNumberInput = ({
   function handleClearInput() {
     setPhoneNumber("");
   }
+
+  const styles = useThemedStyles((theme) => sendOtpStyles(theme));
+
   return (
     <React.Fragment>
       <Text style={styles.inputLabel}>Mobile number</Text>

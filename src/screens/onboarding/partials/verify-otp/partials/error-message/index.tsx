@@ -1,4 +1,4 @@
-import { useShakeAnimation } from "@src/common/hooks";
+import { useShakeAnimation, useThemedStyles } from "@src/common/hooks";
 import { ApiError } from "@src/screens/onboarding/api";
 import * as Haptics from "expo-haptics";
 import { useEffect, useRef } from "react";
@@ -14,7 +14,7 @@ interface IErrorMessage {
 const ErrorMessage = ({ error, screenHeight, isOtpError }: IErrorMessage) => {
   const errorRef = useRef(new Animated.Value(0));
   const { triggerShake } = useShakeAnimation({ ref: errorRef });
-  const styles = getStyles(screenHeight);
+  const styles = useThemedStyles((theme) => getStyles(screenHeight, theme));
 
   useEffect(() => {
     if (!isOtpError) return;

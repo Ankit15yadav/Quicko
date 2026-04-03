@@ -1,15 +1,14 @@
+import { useThemedStyles } from "@src/common/hooks";
 import SquircleCard from "@src/components/squircles/card";
 import { Image, Text, View } from "react-native";
-import { styles } from "../../../styles";
+import { styles as sendOtpStyles } from "../../styles";
 
 const InputContainerHeader = () => {
+  const styles = useThemedStyles((theme) => sendOtpStyles(theme));
+
   return (
     <View style={styles.brandRow}>
-      <SquircleCard
-        width={60}
-        height={60}
-        style={{ backgroundColor: "#f0e439ff" }}
-      >
+      <SquircleCard width={60} height={60} style={styles.logo}>
         <Image
           source={require("@src/assets/images/quicko-logo.png")}
           style={styles.logoImage}

@@ -6,6 +6,10 @@ export default function OnBoardingLayout() {
     <Stack>
       <Stack.Screen name="send-otp" options={{ headerShown: false }} />
       <Stack.Screen
+        name="user-info"
+        options={{ headerShown: true, headerBackButtonMenuEnabled: false }}
+      />
+      <Stack.Screen
         name="verify-otp"
         options={{
           headerShown: true,

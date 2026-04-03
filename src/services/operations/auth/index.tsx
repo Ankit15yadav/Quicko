@@ -12,6 +12,7 @@ export interface ISendOtp {
 }
 
 export async function VerifyOtp({ otp, phoneNumber }: IVerifyOtp) {
+  console.log("verify otp called");
   const endpoint = getEndpoint("VERIFY_OTP");
   const response = await Request()
     .body({ otp })

@@ -1,10 +1,11 @@
+import { ThemeType } from "@src/theme";
 import { StyleSheet } from "react-native";
 
-export const getStyles = (screenHeight: number) =>
+export const getStyles = (screenHeight: number, theme: ThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#262531ff",
+      backgroundColor: theme.bg.primary,
       paddingTop: screenHeight * 0.06,
       justifyContent: "flex-start",
       alignItems: "center",

@@ -1,3 +1,4 @@
+import { ThemeType } from "@src/theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -9,14 +10,14 @@ export const styles = StyleSheet.create({
   charText: {
     fontSize: 20,
     fontWeight: "800",
-    color: "gray",
+    color: "#9D9DB1",
   },
 });
 
-export const getSlotStyle = (isActive: boolean) =>
+export const getSlotStyle = (isActive: boolean, theme: ThemeType) =>
   StyleSheet.create({
     card: {
-      backgroundColor: isActive ? "white" : "#cfcfcfff",
+      backgroundColor: theme.bg.secondary,
       shadowColor: isActive ? "#111827" : "transparent",
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: isActive ? 0.25 : 0,

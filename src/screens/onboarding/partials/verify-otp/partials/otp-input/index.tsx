@@ -1,3 +1,4 @@
+import { useThemedStyles } from "@src/common/hooks";
 import SquircleCard from "@src/components/squircles/card";
 import { OTPInput, OTPInputRef, SlotProps } from "input-otp-native";
 import { RefObject } from "react";
@@ -31,12 +32,10 @@ const OtpInputComponent = ({ onCompleteHandler, ref }: IOtpInputComponent) => {
 export default OtpInputComponent;
 
 function Slot({ char, isActive }: SlotProps & { index: number }) {
+  const { card } = useThemedStyles((theme) => getSlotStyle(isActive, theme));
+
   return (
-    <SquircleCard
-      width={SLOT_SIZE}
-      height={SLOT_SIZE + 3}
-      style={[getSlotStyle(isActive).card]}
-    >
+    <SquircleCard width={SLOT_SIZE} height={SLOT_SIZE + 3} style={[card]}>
       {char !== null && (
         <Animated.View>
           <Text style={styles.charText}>{char}</Text>

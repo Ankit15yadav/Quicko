@@ -1,3 +1,4 @@
+import { useThemedStyles } from "@src/common/hooks";
 import SquircleButton from "@src/components/squircles/button";
 import TermsAndServices from "@src/components/terms-and-services";
 import { useState } from "react";
@@ -11,10 +12,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useOnboarding } from "../../hooks/use-onboarding";
-import { styles } from "../styles";
 import SquircleMarquee from "./partials/hero-section";
 import InputContainerHeader from "./partials/input-container-header";
 import PhoneNumberInput from "./partials/phone-input";
+import { styles as sendOtpStyles } from "./styles";
 
 const UserOnboardingScreen = () => {
   const {
@@ -26,6 +27,8 @@ const UserOnboardingScreen = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   const isActive = !!phoneNumber.length;
+
+  const styles = useThemedStyles((theme) => sendOtpStyles(theme, isActive));
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["top"]}>
