@@ -5,10 +5,8 @@ import {
   VerifyOtp,
 } from "@src/services/operations/auth";
 import { useMutation } from "@tanstack/react-query";
-import { HttpStatusCode } from "axios";
 import { router } from "expo-router";
 import * as secureStorage from "expo-secure-store";
-import Toast from "react-native-toast-message";
 
 const MUTATION_KEYS = {
   VERIFY_OTP: ["verify-otp"],
@@ -68,14 +66,6 @@ export const useVerifyOtp = (options?: MutationCallbacks) => {
       }
     },
     onError: (error: ApiError) => {
-      console.log(error);
-      if (error.status === HttpStatusCode.TooManyRequests) {
-        Toast.show({
-          text1: "Too many requests. Please try again later.",
-          autoHide: true,
-          visibilityTime: 4000,
-        });
-      }
       options?.onError?.(error);
     },
   });

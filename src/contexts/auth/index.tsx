@@ -1,7 +1,6 @@
-import { isTokenExpired } from "@src/utils";
+import { ValidateToken } from "@src/services/operations/auth";
 import { useRouter } from "expo-router";
 import * as secureStorage from "expo-secure-store";
-import { jwtDecode } from "jwt-decode";
 import React, {
   createContext,
   ReactNode,
@@ -62,45 +61,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         replace("/(onboarding)/send-otp");
         return;
       }
-
-      const isAccessTokenExpired = isTokenExpired(accessToken);
-      if (accessToken && !isAccessTokenExpired) {
-        const userData = jwtDecode<IUser>(accessToken);
-        dispatch({
-          type: "SET_USER",
-          payload: {
-            accessToken: userData.accessToken,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-          },
-        });
-        replace("/(tabs)");
-        return;
-      }
-
-      const isRefreshTokenExpired = isTokenExpired(refreshToken);
-      if (refreshToken && !isRefreshTokenExpired) {
-        const tokens = {
-          accessToken: "ey.hello.this.is.access.token",
-          refreshToken: "",
-        };
-        await secureStorage.setItemAsync("accessToken", tokens.accessToken);
-        await secureStorage.setItemAsync("refreshToken", tokens.refreshToken);
-
-        const userData = jwtDecode<IUser>(tokens.accessToken);
-        dispatch({
-          type: "SET_USER",
-          payload: {
-            accessToken: userData.accessToken,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-          },
-        });
-        replace("/(tabs)");
-        return;
-      }
-
-      await logout();
+      // This will get the fresh access token if expired before app starts.
+      await ValidateToken();
+      //
     } catch (error) {
       console.error("Auth initialization error:", error);
       await logout();

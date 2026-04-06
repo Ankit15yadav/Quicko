@@ -12,7 +12,6 @@ export interface ISendOtp {
 }
 
 export async function VerifyOtp({ otp, phoneNumber }: IVerifyOtp) {
-  console.log("verify otp called");
   const endpoint = getEndpoint("VERIFY_OTP");
   const response = await Request()
     .body({ otp })
@@ -32,4 +31,12 @@ export async function SendOtp(payload: ISendOtp) {
     .post<{ success: boolean; message: string }>(endpoint);
 
   return response;
+}
+
+export async function ValidateToken() {
+  const endpoint = getEndpoint("VALIDATE");
+  console.log("validate token called");
+  // normal api call to check the token validity when app is initialized.
+  // Don't use anywhere in the application other than AuthContext.
+  return await Request().get(endpoint);
 }
