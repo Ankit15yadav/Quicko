@@ -1,6 +1,8 @@
+import { useAuth } from "@src/contexts/auth";
 import { ISendOtp, IVerifyOtp } from "@src/services/operations/auth";
 import { HttpStatusCode } from "axios";
 import { useRouter } from "expo-router";
+import * as secureStorage from "expo-secure-store";
 import { useState } from "react";
 import { Keyboard } from "react-native";
 import Toast from "react-native-toast-message";
@@ -20,6 +22,7 @@ const schema = z.object({
 
 export const useOnboarding = () => {
   const router = useRouter();
+  const { dispatch } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const handleSendOtpSuccess = (data: unknown) => {};
@@ -39,6 +42,7 @@ export const useOnboarding = () => {
   }
 
   const handleSendOtp = async (payload: ISendOtp) => {
+    console.log("handle submit called: ", payload);
     const validationResult = schema.safeParse(payload);
 
     if (!validationResult.success) {
@@ -59,6 +63,7 @@ export const useOnboarding = () => {
 
     try {
       const result = await sendOtp(payload);
+      console.log("result : ", result);
       if (result.success) {
         router.push({
           pathname: "/(onboarding)/verify-otp",
@@ -75,6 +80,26 @@ export const useOnboarding = () => {
   const handleVerifyOtp = async (payload: IVerifyOtp) => {
     try {
       const result = await verifyOtp(payload);
+      console.log("verify otp result:", result);
+      if (result) {
+        const {
+          data: { tokens, userId, isNewUser },
+        } = result;
+
+        dispatch({ type: "SET_AUTHENTICATION_STATUS", payload: true });
+        await secureStorage.setItemAsync("accessToken", tokens.accessToken);
+        await secureStorage.setItemAsync("refreshToken", tokens.refreshToken);
+
+        router.dismissAll();
+        if (isNewUser) {
+          router.push({
+            pathname: "/(onboarding)/user-info",
+            params: {
+              id: userId,
+            },
+          });
+        } else router.push("/");
+      }
     } catch (error) {
       // handled by onError in useVerifyOtp
     }

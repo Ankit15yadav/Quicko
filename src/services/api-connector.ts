@@ -102,7 +102,7 @@ const ProcessQueue = (error: any, token: string | null = null) => {
 };
 
 axiosInstance.interceptors.response.use(
-  (response: any) => {
+  (response) => {
     return response;
   },
 
@@ -146,10 +146,10 @@ axiosInstance.interceptors.response.use(
       try {
         const refreshToken = await secureStorage.getItemAsync("refreshToken");
 
-        const response = await axios.post<{
-          accessToken: string;
-          refreshToken: string;
-        }>(`${BASE_URL}/api/auth/login/token/refresh`, { refreshToken });
+        const response = await axios.post(
+          `${BASE_URL}/api/auth/login/token/refresh`,
+          { refreshToken },
+        );
 
         const { accessToken, refreshToken: newRefreshToken } = response.data;
 
@@ -163,7 +163,7 @@ axiosInstance.interceptors.response.use(
         ProcessQueue(null, accessToken);
 
         return axiosInstance(originalRequest);
-      } catch (err) {
+      } catch (err: any) {
         ProcessQueue(err, null);
 
         await secureStorage.deleteItemAsync("accessToken");

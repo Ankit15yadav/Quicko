@@ -10,14 +10,24 @@ import React, {
 } from "react";
 import { IUser } from "./interface";
 
+interface AuthContextType {
+  user: IUser | null;
+  isLoading: boolean;
+  logout: () => Promise<void>;
+  dispatch: React.Dispatch<AuthAction>;
+  isAuthenticated: boolean;
+}
+
 interface AuthState {
   user: IUser | null;
   isLoading: boolean;
+  isAuthenticated: boolean;
 }
 
 type AuthAction =
   | { type: "SET_USER"; payload: IUser | null }
   | { type: "SET_LOADING"; payload: boolean }
+  | { type: "SET_AUTHENTICATION_STATUS"; payload: boolean }
   | { type: "LOGOUT" };
 
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
@@ -26,19 +36,14 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
       return { ...state, user: action.payload };
     case "SET_LOADING":
       return { ...state, isLoading: action.payload };
+    case "SET_AUTHENTICATION_STATUS":
+      return { ...state, isAuthenticated: action.payload };
     case "LOGOUT":
-      return { user: null, isLoading: false };
+      return { user: null, isAuthenticated: false, isLoading: false };
     default:
       return state;
   }
 };
-
-interface AuthContextType {
-  user: IUser | null;
-  isLoading: boolean;
-  logout: () => Promise<void>;
-  dispatch: React.Dispatch<AuthAction>;
-}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -47,6 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
     isLoading: true,
+    isAuthenticated: false,
   });
 
   const initializeAuth = async () => {
@@ -55,7 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       const accessToken = await secureStorage.getItemAsync("accessToken");
       const refreshToken = await secureStorage.getItemAsync("refreshToken");
-
+      console.log("initialzie auth: ", accessToken, refreshToken);
       if (!accessToken && !refreshToken) {
         dispatch({ type: "SET_USER", payload: null });
         replace("/(onboarding)/send-otp");
@@ -63,7 +69,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       // This will get the fresh access token if expired before app starts.
       await ValidateToken();
-      //
+      // token is valid
+      dispatch({ type: "SET_AUTHENTICATION_STATUS", payload: true });
+      push("/");
     } catch (error) {
       console.error("Auth initialization error:", error);
       await logout();
@@ -86,7 +94,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: state.user, isLoading: state.isLoading, logout, dispatch }}
+      value={{
+        user: state.user,
+        isLoading: state.isLoading,
+        isAuthenticated: state.isAuthenticated,
+        logout,
+        dispatch,
+      }}
     >
       {children}
     </AuthContext.Provider>
